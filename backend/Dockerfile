@@ -8,6 +8,7 @@ ARG PROJECT_PATH=/Spring-test/backend
 WORKDIR ${PROJECT_PATH}
 
 RUN --mount=type=bind,source=pom.xml,target=${PROJECT_PATH}/pom.xml \
-    mvn dependency:resolve
-    # mvn dependency:go-offline
-
+    mvn dependency:resolve \
+    && mvn dependency:go-offline \
+    && mvn spring-boot:help \
+    && mvn resources:resources compiler:compile
