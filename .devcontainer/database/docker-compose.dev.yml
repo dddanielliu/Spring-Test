@@ -1,0 +1,8 @@
+services:
+  db:
+    restart: no
+    volumes:
+      - .:/Spring-test
+    stdin_open: true
+    tty: true
+    depends_on: []
