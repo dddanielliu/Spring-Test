@@ -1,0 +1,41 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        - PROJECT_PATH=/Spring-test/backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
+  db:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+       - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d/
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    profiles: [dev]
+    ports:
+      - "8978:8978"
+    volumes:
+      - cloudbeaver:/opt/cloudbeaver/workspace
+      - ./database/.dbeaver/data-sources.json:/opt/cloudbeaver/workspace/GlobalConfiguration/.dbeaver/data-sources.json
+
+volumes:
+  mariadb_data:
+  cloudbeaver:
