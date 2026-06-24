@@ -12,3 +12,6 @@ RUN --mount=type=bind,source=pom.xml,target=${PROJECT_PATH}/pom.xml \
     && mvn dependency:go-offline \
     && mvn spring-boot:help \
     && mvn resources:resources compiler:compile
+
+RUN curl -fsSL https://opencode.ai/install | bash
+ENV PATH="/root/.opencode/bin:${PATH}"
