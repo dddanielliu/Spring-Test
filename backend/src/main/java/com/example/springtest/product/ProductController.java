@@ -1,6 +1,5 @@
 package com.example.springtest.product;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,24 +9,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductController {
+
+    private final CreateProductService createProductService;
+    private final GetProductService getProductService;
+    private final UpdateProductService updateProductService;
+    private final DeleteProductService deleteProductService;
+
+    public ProductController(
+        CreateProductService createProductService,
+        GetProductService getProductService,
+        UpdateProductService updateProductService,
+        DeleteProductService deleteProductService
+    ) {
+        this.createProductService = createProductService;
+        this.getProductService = getProductService;
+        this.updateProductService = updateProductService;
+        this.deleteProductService = deleteProductService;
+    }
+
     @PostMapping
     public ResponseEntity<String> createProduct() {
-        return ResponseEntity.status(HttpStatus.CREATED).body("Product Created");
-        
+        return createProductService.execute(null);
     }
 
     @GetMapping
     public ResponseEntity<String> getProduct() {
-        return ResponseEntity.status(HttpStatus.OK).body("Get Product");
+        return getProductService.execute(null);
     }
 
     @PutMapping
     public ResponseEntity<String> updateProduct() {
-        return ResponseEntity.status(HttpStatus.OK).body("Product Updated");
+        return updateProductService.execute(null);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteProduct() {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Product Deleted");
+        return deleteProductService.execute(null);
     }
 }
