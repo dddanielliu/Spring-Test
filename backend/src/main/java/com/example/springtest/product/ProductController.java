@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.springtest.product.services.CreateProductService;
+import com.example.springtest.product.services.DeleteProductService;
+import com.example.springtest.product.services.GetProductService;
+import com.example.springtest.product.services.UpdateProductService;
+
 @RestController
 public class ProductController {
 
