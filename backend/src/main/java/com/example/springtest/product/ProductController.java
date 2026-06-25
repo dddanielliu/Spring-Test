@@ -19,6 +19,7 @@ import com.example.springtest.product.services.CreateProductService;
 import com.example.springtest.product.services.DeleteProductService;
 import com.example.springtest.product.services.GetProductService;
 import com.example.springtest.product.services.GetProductsService;
+import com.example.springtest.product.services.SearchProductByNameService;
 import com.example.springtest.product.services.SearchProductService;
 import com.example.springtest.product.services.UpdateProductService;
 
@@ -29,6 +30,7 @@ public class ProductController {
     private final GetProductsService getProductsService;
     private final GetProductService getProductService;
     private final SearchProductService searchProductService;
+    private final SearchProductByNameService searchProductByNameService;
     private final UpdateProductService updateProductService;
     private final DeleteProductService deleteProductService;
 
@@ -37,6 +39,7 @@ public class ProductController {
         GetProductsService getProductsService,
         GetProductService getProductService,
         SearchProductService searchProductService,
+        SearchProductByNameService searchProductByNameService,
         UpdateProductService updateProductService,
         DeleteProductService deleteProductService
     ) {
@@ -44,6 +47,7 @@ public class ProductController {
         this.getProductsService = getProductsService;
         this.getProductService = getProductService;
         this.searchProductService = searchProductService;
+        this.searchProductByNameService = searchProductByNameService;
         this.updateProductService = updateProductService;
         this.deleteProductService = deleteProductService;
     }
@@ -64,8 +68,17 @@ public class ProductController {
     }
 
     @GetMapping("/products/search")
-    public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String name) {
-        return searchProductService.execute(name);
+    public ResponseEntity<List<ProductDTO>> searchProducts(
+        @RequestParam(required = false) String query,
+        @RequestParam(required = false) String name
+    ) {
+        if (query != null) {
+            return searchProductService.execute(query);
+        }
+        if (name != null) {
+            return searchProductByNameService.execute(name);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @PutMapping("/product/{id}")

@@ -10,17 +10,17 @@ import com.example.springtest.product.ProductRepository;
 import com.example.springtest.product.model.ProductDTO;
 
 @Service
-public class SearchProductService implements Query<String, List<ProductDTO>> {
+public class SearchProductByNameService implements Query<String, List<ProductDTO>> {
 
     private final ProductRepository productRepository;
 
-    public SearchProductService(ProductRepository productRepository) {
+    public SearchProductByNameService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-    
+
     @Override
     public ResponseEntity<List<ProductDTO>> execute(String name) {
-        return ResponseEntity.ok(productRepository.findByNameOrDescriptionContaining(name)
+        return ResponseEntity.ok(productRepository.findByNameContaining(name)
             .stream()
             .map(ProductDTO::new)
             .toList()
