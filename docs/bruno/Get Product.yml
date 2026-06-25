@@ -1,15 +1,67 @@
 info:
   name: Get Product
   type: http
-  seq: 2
+  seq: 3
 
 http:
   method: GET
-  url: "{{baseURL}}"
+  url: "{{baseURL}}/product/{{id}}"
   auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: "1"
 
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/product/{{id}}"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 01:07:49 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "description": "Latest model with 256GB storage, A15 Bionic chip, and improved camera system.",
+            "id": 1,
+            "name": "Apple iPhone 14"
+          }
+  - name: example (no product)
+    request:
+      url: "{{baseURL}}/product/{{id}}"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-length
+          value: "0"
+        - name: date
+          value: Thu, 25 Jun 2026 01:08:04 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: text
+        data: ""
