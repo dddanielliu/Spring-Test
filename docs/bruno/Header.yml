@@ -1,0 +1,95 @@
+info:
+  name: Header
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: "{{baseURL}}/header"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/header"
+      method: GET
+      headers:
+        - name: region
+          value: US
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "18"
+        - name: date
+          value: Thu, 25 Jun 2026 09:52:47 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: BALDEAGLDFREEFOM
+  - name: example (1)
+    request:
+      url: "{{baseURL}}/header"
+      method: GET
+      headers:
+        - name: region
+          value: MEX
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "21"
+        - name: date
+          value: Thu, 25 Jun 2026 09:53:06 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: CountryNotSupported
+  - name: example (2)
+    request:
+      url: "{{baseURL}}/header"
+      method: GET
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 09:54:59 GMT
+        - name: connection
+          value: close
+      body:
+        type: json
+        data: |-
+          {
+            "timestamp": "2026-06-25T09:54:59.959Z",
+            "status": 400,
+            "error": "Bad Request",
+            "path": "/header"
+          }
