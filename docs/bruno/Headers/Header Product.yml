@@ -1,11 +1,14 @@
 info:
-  name: Get Product
+  name: Header Product
   type: http
-  seq: 3
+  seq: 1
 
 http:
   method: GET
-  url: "{{baseURL}}/product/{{id}}"
+  url: "{{baseURL}}/header/product"
+  headers:
+    - name: Accept
+      value: application/xml
   auth: inherit
 
 runtime:
@@ -22,8 +25,11 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/product/{{id}}"
+      url: "{{baseURL}}/header/product"
       method: GET
+      headers:
+        - name: Accept
+          value: application/json
     response:
       status: 200
       statusText: OK
@@ -33,7 +39,7 @@ examples:
         - name: transfer-encoding
           value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 01:07:49 GMT
+          value: Thu, 25 Jun 2026 11:35:38 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
@@ -42,31 +48,42 @@ examples:
         type: json
         data: |-
           {
-            "description": "Latest model with 256GB storage, A15 Bionic chip, and improved camera system.",
+            "description": "The greatest product you'll ever see ever",
             "id": 1,
-            "name": "Apple iPhone 14"
+            "name": "super great product",
+            "price": null
           }
-  - name: example (not found)
+  - name: example (1)
     request:
-      url: "{{baseURL}}/product/{{id}}"
+      url: "{{baseURL}}/header/product"
       method: GET
+      headers:
+        - name: Accept
+          value: application/xml
     response:
-      status: 404
-      statusText: Not Found
+      status: 200
+      statusText: OK
       headers:
         - name: content-type
-          value: application/json
+          value: application/xml
         - name: transfer-encoding
           value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 02:58:36 GMT
+          value: Thu, 25 Jun 2026 11:36:14 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
           value: keep-alive
       body:
-        type: json
-        data: |-
-          {
-            "message": "Product not found"
-          }
+        type: xml
+        data: "<Product>\r
+
+          \    <id>1</id>\r
+
+          \    <name>super great product</name>\r
+
+          \    <description>The greatest product you'll ever see ever</description>\r
+
+          \    <price/>\r
+
+          </Product>"
