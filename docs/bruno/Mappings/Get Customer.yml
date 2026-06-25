@@ -1,0 +1,54 @@
+info:
+  name: Get Customer
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseURL}}/customer/{{id}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/customer/{{id}}"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 12:32:45 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "address": {
+              "city": "Cityville",
+              "id": 1,
+              "state": "CA",
+              "street": "123 Main St"
+            },
+            "firstName": "John",
+            "id": 1,
+            "lastName": "Doe"
+          }
