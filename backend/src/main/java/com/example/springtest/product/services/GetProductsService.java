@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 import com.example.springtest.Query;
 import com.example.springtest.product.ProductRepository;
 import com.example.springtest.product.model.Product;
+import com.example.springtest.product.model.ProductDTO;
 
 @Service
-public class GetProductsService implements Query<Void, List<Product>> {
+public class GetProductsService implements Query<Void, List<ProductDTO>> {
 
     private final ProductRepository productRepository;
 
@@ -20,9 +21,10 @@ public class GetProductsService implements Query<Void, List<Product>> {
     }
 
     @Override
-    public ResponseEntity<List<Product>> execute(Void input) {
+    public ResponseEntity<List<ProductDTO>> execute(Void input) {
         List<Product> products = productRepository.findAll();
+        List<ProductDTO> productDTOs = products.stream().map(ProductDTO::new).toList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(products);
+        return ResponseEntity.status(HttpStatus.OK).body(productDTOs);
     }
 }
