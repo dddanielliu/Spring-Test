@@ -9,3 +9,6 @@ spring:
 server:
   error:
     include-message: always
+# logging:
+#   file:
+#     name: mylog.log
