@@ -5,7 +5,15 @@ info:
 
 http:
   method: POST
-  url: "{{baseURL}}"
+  url: "{{baseURL}}/product"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "new product 1",
+        "description": "a great product",
+        "price": 9.99
+      }
   auth: inherit
 
 settings:
@@ -13,3 +21,39 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/product"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "name": "new product 1",
+            "description": "a great product",
+            "price": 9.99
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 01:17:54 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "description": "a great product",
+            "id": 4,
+            "name": "new product 1"
+          }

@@ -1,0 +1,60 @@
+info:
+  name: Get Products
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseURL}}/products"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/products"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 01:18:24 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          [
+            {
+              "description": "Latest model with 256GB storage, A15 Bionic chip, and improved camera system.",
+              "id": 1,
+              "name": "Apple iPhone 14"
+            },
+            {
+              "description": "Flagship phone with 128GB storage, Exynos 2100, and triple camera setup.",
+              "id": 2,
+              "name": "Samsung Galaxy S21"
+            },
+            {
+              "description": "Wireless noise-cancelling headphones with up to 30 hours of battery life.",
+              "id": 3,
+              "name": "Sony WH-1000XM4"
+            },
+            {
+              "description": "a great product",
+              "id": 4,
+              "name": "new product 1"
+            }
+          ]
