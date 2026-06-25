@@ -6,3 +6,6 @@ spring:
     username: ${DB_USER:spring_test_user}
     password: ${DB_PASSWORD:spring_test_password}
     driver-class-name: org.mariadb.jdbc.Driver
+server:
+  error:
+    include-message: always
