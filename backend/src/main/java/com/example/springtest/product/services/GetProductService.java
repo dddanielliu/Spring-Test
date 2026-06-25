@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.springtest.Query;
+import com.example.springtest.exceptions.ProductNotFoundException;
 import com.example.springtest.product.ProductRepository;
 import com.example.springtest.product.model.Product;
 import com.example.springtest.product.model.ProductDTO;
@@ -25,10 +26,8 @@ public class GetProductService implements Query<Integer, ProductDTO>{
         if (productOptional.isPresent()){
             return ResponseEntity.ok(new ProductDTO(productOptional.get()));
         }
-
-        // In the future we will want to throw a Product Not Found Exception.
         
-        return null;
+        throw new ProductNotFoundException();
     }
 
 }

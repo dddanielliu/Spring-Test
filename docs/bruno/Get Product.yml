@@ -46,22 +46,27 @@ examples:
             "id": 1,
             "name": "Apple iPhone 14"
           }
-  - name: example (no product)
+  - name: example (not found)
     request:
       url: "{{baseURL}}/product/{{id}}"
       method: GET
     response:
-      status: 200
-      statusText: OK
+      status: 404
+      statusText: Not Found
       headers:
-        - name: content-length
-          value: "0"
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 01:08:04 GMT
+          value: Thu, 25 Jun 2026 02:58:36 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
           value: keep-alive
       body:
-        type: text
-        data: ""
+        type: json
+        data: |-
+          {
+            "message": "Product not found"
+          }
