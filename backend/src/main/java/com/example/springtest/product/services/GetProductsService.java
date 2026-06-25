@@ -11,11 +11,11 @@ import com.example.springtest.product.ProductRepository;
 import com.example.springtest.product.model.Product;
 
 @Service
-public class GetProductService implements Query<Void, List<Product>> {
+public class GetProductsService implements Query<Void, List<Product>> {
 
     private final ProductRepository productRepository;
 
-    public GetProductService(ProductRepository productRepository) {
+    public GetProductsService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 

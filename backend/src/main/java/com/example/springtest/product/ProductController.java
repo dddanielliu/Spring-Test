@@ -12,25 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springtest.product.model.Product;
 import com.example.springtest.product.services.CreateProductService;
 import com.example.springtest.product.services.DeleteProductService;
-import com.example.springtest.product.services.GetProductService;
+import com.example.springtest.product.services.GetProductsService;
 import com.example.springtest.product.services.UpdateProductService;
 
 @RestController
 public class ProductController {
 
     private final CreateProductService createProductService;
-    private final GetProductService getProductService;
+    private final GetProductsService getProductsService;
     private final UpdateProductService updateProductService;
     private final DeleteProductService deleteProductService;
 
     public ProductController(
         CreateProductService createProductService,
-        GetProductService getProductService,
+        GetProductsService getProductsService,
         UpdateProductService updateProductService,
         DeleteProductService deleteProductService
     ) {
         this.createProductService = createProductService;
-        this.getProductService = getProductService;
+        this.getProductsService = getProductsService;
         this.updateProductService = updateProductService;
         this.deleteProductService = deleteProductService;
     }
@@ -41,8 +41,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProduct() {
-        return getProductService.execute(null);
+    public ResponseEntity<List<Product>> getProducts() {
+        return getProductsService.execute(null);
     }
 
     @PutMapping
