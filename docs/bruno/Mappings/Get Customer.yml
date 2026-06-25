@@ -33,7 +33,7 @@ examples:
         - name: transfer-encoding
           value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 12:47:28 GMT
+          value: Thu, 25 Jun 2026 12:58:34 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
