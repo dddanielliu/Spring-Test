@@ -33,7 +33,7 @@ examples:
         - name: transfer-encoding
           value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 12:32:45 GMT
+          value: Thu, 25 Jun 2026 12:47:28 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
@@ -42,12 +42,22 @@ examples:
         type: json
         data: |-
           {
-            "address": {
-              "city": "Cityville",
-              "id": 1,
-              "state": "CA",
-              "street": "123 Main St"
-            },
+            "addresses": [
+              {
+                "city": "Cityville",
+                "customerId": 1,
+                "id": 1,
+                "state": "CA",
+                "street": "123 Main St"
+              },
+              {
+                "city": "CityC",
+                "customerId": 1,
+                "id": 2,
+                "state": "SC",
+                "street": "789 Pine St"
+              }
+            ],
             "firstName": "John",
             "id": 1,
             "lastName": "Doe"

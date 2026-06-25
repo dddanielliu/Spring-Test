@@ -27,4 +27,6 @@ public class Address {
     @Column(name="state")
     private String state;
 
+    @Column(name="customer_id")
+    private Integer customerId;
 }
