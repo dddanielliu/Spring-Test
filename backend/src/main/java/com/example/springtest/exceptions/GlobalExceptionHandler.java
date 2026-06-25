@@ -1,6 +1,9 @@
 package com.example.springtest.exceptions;
 
+import java.util.Objects;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -22,5 +25,15 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ErrorResponse handleProductNotValidException(ProductNotValidException exception) {
         return new ErrorResponse(exception.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleAllExceptions(Exception exception) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        if (exception instanceof org.springframework.web.ErrorResponse er) {
+            status = HttpStatus.valueOf(er.getStatusCode().value());
+        }
+        return new ResponseEntity<>(new ErrorResponse(Objects.toString(exception.getMessage(), "No message available")), status);
     }
 }
