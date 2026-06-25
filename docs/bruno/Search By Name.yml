@@ -4,8 +4,12 @@ info:
   seq: 6
 
 http:
-  method: DELETE
-  url: "{{baseURL}}/product/{{id}}"
+  method: GET
+  url: "{{baseURL}}/products/search?name=Samsung"
+  params:
+    - name: name
+      value: Samsung
+      type: query
   auth: inherit
 
 runtime:
@@ -22,18 +26,33 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{baseURL}}/product/{{id}}"
-      method: DELETE
+      url: "{{baseURL}}/products/search?name=Samsung"
+      method: GET
+      params:
+        - name: name
+          value: Samsung
+          type: query
     response:
-      status: 204
-      statusText: No Content
+      status: 200
+      statusText: OK
       headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
         - name: date
-          value: Thu, 25 Jun 2026 01:21:21 GMT
+          value: Thu, 25 Jun 2026 07:42:18 GMT
         - name: keep-alive
           value: timeout=60
         - name: connection
           value: keep-alive
       body:
-        type: text
-        data: ""
+        type: json
+        data: |-
+          [
+            {
+              "description": "Flagship phone with 128GB storage, Exynos 2100, and triple camera setup.",
+              "id": 2,
+              "name": "Samsung Galaxy S21"
+            }
+          ]
