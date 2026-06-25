@@ -1,0 +1,89 @@
+info:
+  name: Header Product
+  type: http
+  seq: 8
+
+http:
+  method: GET
+  url: "{{baseURL}}/header/product"
+  headers:
+    - name: Accept
+      value: application/xml
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{baseURL}}/header/product"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/json
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 11:35:38 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: json
+        data: |-
+          {
+            "description": "The greatest product you'll ever see ever",
+            "id": 1,
+            "name": "super great product",
+            "price": null
+          }
+  - name: example (1)
+    request:
+      url: "{{baseURL}}/header/product"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/xml
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: content-type
+          value: application/xml
+        - name: transfer-encoding
+          value: chunked
+        - name: date
+          value: Thu, 25 Jun 2026 11:36:14 GMT
+        - name: keep-alive
+          value: timeout=60
+        - name: connection
+          value: keep-alive
+      body:
+        type: xml
+        data: "<Product>\r
+
+          \    <id>1</id>\r
+
+          \    <name>super great product</name>\r
+
+          \    <description>The greatest product you'll ever see ever</description>\r
+
+          \    <price/>\r
+
+          </Product>"
