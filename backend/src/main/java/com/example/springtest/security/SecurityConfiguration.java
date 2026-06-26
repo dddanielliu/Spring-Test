@@ -51,6 +51,9 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/open").permitAll();
                     authorize.requestMatchers("/closed").authenticated();
                     authorize.requestMatchers(HttpMethod.POST, "/product").authenticated();
+
+                    authorize.requestMatchers(HttpMethod.GET, "/special").hasAuthority("SPECIAL");
+                    authorize.requestMatchers(HttpMethod.GET, "/basic").hasAnyAuthority("SPECIAL", "BASIC");
                 })
                 .httpBasic(Customizer.withDefaults())
                 .build();
